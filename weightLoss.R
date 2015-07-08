@@ -176,3 +176,4 @@ working_data <- working_data[c(1:33,35:36,38,40,42)]
 working_data$Times_Nurse <- as.numeric(as.character(working_data$Times_Nurse))
 working_data$Supplement <- as.character(working_data$Supplement)
 
+write.csv(working_data, "weight_loss.csv")
