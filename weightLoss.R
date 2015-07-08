@@ -176,4 +176,10 @@ working_data <- working_data[c(1:33,35:36,38,40,42)]
 working_data$Times_Nurse <- as.numeric(as.character(working_data$Times_Nurse))
 working_data$Supplement <- as.character(working_data$Supplement)
 
+# Create weight difference columns
+weight_loss$Weight_Gained <- weight_loss$Weight_Prior_Delivery - weight_loss$Pre_Pregnancy_Weight
+weight_loss$Weight_Lost_1_Month <- weight_loss$Weight_Prior_Delivery - weight_loss$Weight_1_Month
+weight_loss$Weight_Lost_6_Month <- weight_loss$Weight_Prior_Delivery - weight_loss$Weight_6_Month
+weight_loss$Weight_Lost_12_Month <- weight_loss$Weight_Prior_Delivery - weight_loss$Weight_12_Month
+
 write.csv(working_data, "weight_loss.csv")
