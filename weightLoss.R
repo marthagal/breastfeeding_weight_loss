@@ -5,7 +5,7 @@ weight_loss <- read.csv("Weight_Loss_Survey_Data.csv", fileEncoding="latin1")
 complete_data <- subset(weight_loss, Status=="Complete")
 
 # Remove unneeded columns
-working_data <- complete_data[c(1,23,25,27,31,33:84)]
+working_data <- complete_data[c(1,23,25,27,29,31,33:84)]
 
 # Try Lose Weight column
 working_data$Try_Lose_Weight <- as.character(working_data$Try_Lose_Weight)
@@ -14,12 +14,12 @@ working_data$Try_Lose_Weight[working_data$Try_Lose_Weight == "No, I was consciou
 working_data$Try_Lose_Weight[working_data$Try_Lose_Weight == "I wanted to lose weight and tried sometimes, but found it too challenging with having a new baby."] <- "Too_Challenging"
 working_data$Try_Lose_Weight[working_data$Try_Lose_Weight == "No, I ate according to my appetite."] <- "No"
 working_data$Try_Lose_Weight[working_data$Try_Lose_Weight == "Other" | working_data$Try_Lose_Weight == ""] <- "NA"
-working_data <- working_data[c(1:7,9:57)]
+working_data <- working_data[c(1:8,10:58)]
 
 # Exercise while Breastfeeding column
 working_data$Exercise_Breastfeeding <- as.character(working_data$Exercise_Breastfeeding)
 working_data$Exercise_Breastfeeding[working_data$Exercise_Breastfeeding == "Sometimes, but not consistently"] <- "Sometimes"
-working_data <- working_data[c(1:8,10:56)]
+working_data <- working_data[c(1:9,11:57)]
 
 # Weight Watchers column
 working_data$Weight_Watchers <- as.character(working_data$Weight_Watchers)
@@ -55,7 +55,7 @@ working_data$Body_for_Life[working_data$Body_for_Life == "I would recommend"] <-
 working_data$Body_for_Life[working_data$Body_for_Life == "I wouldn't recommend"] <- "No_Recommend"
 working_data$Body_for_Life[working_data$Body_for_Life == "Not sure"] <- "Not_Sure"
 working_data$Body_for_Life[working_data$Body_for_Life == "N/A - I didn't try this" | working_data$Weight_Watchers == ""] <- "NA"
-working_data <- working_data[c(1:14,18:55)]
+working_data <- working_data[c(1:15,19:56)]
 
 # Weight Loss Difficulty column
 working_data$Weight_Loss_Difficulty <- as.character(working_data$Weight_Loss_Difficulty)
@@ -68,7 +68,7 @@ working_data$Weight_Loss_Difficulty[working_data$Weight_Loss_Difficulty == ""] <
 working_data$Weight_Loss_Impact_Supply <- as.character(working_data$Weight_Loss_Impact_Supply)
 working_data$Weight_Loss_Impact_Supply[working_data$Weight_Loss_Impact_Supply == "Not sure"] <- "Not_Sure"
 working_data$Weight_Loss_Impact_Supply[working_data$Weight_Loss_Impact_Supply == "Other" | working_data$Weight_Loss_Impact_Supply == ""] <- "NA"
-working_data <- working_data[c(1:17,21:52)]
+working_data <- working_data[c(1:18,22:53)]
 
 # Walking column
 working_data$Exercise_Type_Walking <- as.character(working_data$Exercise_Type_Walking)
@@ -114,7 +114,7 @@ working_data$Exercise_Type_Weights[working_data$Exercise_Type_Weights == ""] <- 
 working_data$Exercise_Type_Crossfit <- as.character(working_data$Exercise_Type_Crossfit)
 working_data$Exercise_Type_Crossfit[working_data$Exercise_Type_Crossfit == "Crossfit"] <- "Y"
 working_data$Exercise_Type_Crossfit[working_data$Exercise_Type_Crossfit == ""] <- "N"
-working_data <- working_data[c(1:24,26:27,30:49)]
+working_data <- working_data[c(1:25,27:28,31:50)]
 
 # Exercise_Frequency column
 working_data$Exercise_Frequency <- as.character(working_data$Exercise_Frequency)
@@ -127,7 +127,7 @@ working_data$Exercise_Frequency[working_data$Exercise_Frequency == "4-6 Days"] <
 working_data$Exercise_Impact_Supply <- as.character(working_data$Exercise_Impact_Supply)
 working_data$Exercise_Impact_Supply[working_data$Exercise_Impact_Supply == "Not sure"] <- "Not_Sure"
 working_data$Exercise_Impact_Supply[working_data$Exercise_Impact_Supply == "Other" | working_data$Exercise_Impact_Supply == ""] <- "NA"
-working_data <- working_data[c(1:28,31:46)]
+working_data <- working_data[c(1:29,32:47)]
 
 # Breastfeeding Experience column
 working_data$Breastfeeding_Experience <- as.character(working_data$Breastfeeding_Experience)
@@ -155,14 +155,14 @@ working_data$Birth_Experience[working_data$Birth_Experience == "Planned c-sectio
 working_data$Birth_Experience[working_data$Birth_Experience == "Unplanned/Emergency c-section"] <- "Unplanned_C_Section"
 working_data$Birth_Experience[working_data$Birth_Experience == "Other"] <- "NA"
 working_data$Birth_Experience[working_data$Birth_Experience == ""] <- "NA"
-working_data <- working_data[c(1:31,33:44)]
+working_data <- working_data[c(1:32,34:45)]
 
 # Convert First Baby column
 working_data$First_Baby <- as.character(working_data$First_Baby)
 working_data$First_Baby[working_data$First_Baby == "No, I have older children"] <- "No"
 working_data$First_Baby[working_data$First_Baby == "Other" | working_data$First_Baby == "I prefer not to answer."] <- "NA"
 working_data$First_Baby[working_data$First_Baby == ""] <- "NA"
-working_data <- working_data[c(1:32,34:43)]
+working_data <- working_data[c(1:33,35:44)]
 
 # Birth Type Column
 colnames(working_data)[colnames(working_data)=="Single_Multiple_Birth"] <- "Birth_Type"
@@ -171,14 +171,17 @@ working_data$Birth_Type[working_data$Birth_Type == "I had a single birth."] <- "
 working_data$Birth_Type[working_data$Birth_Type == "I had twins."] <- "Twins"
 working_data$Birth_Type[working_data$Birth_Type == "I had triplets."] <- "Triplets"
 working_data$Birth_Type[working_data$Birth_Type == ""] <- "NA"
-working_data <- working_data[c(1:33,35:36,38,40,42)]
+working_data <- working_data[c(1:34,36:37,39,41,43)]
 
 working_data$Times_Nurse <- as.numeric(as.character(working_data$Times_Nurse))
 working_data$Supplement <- as.character(working_data$Supplement)
 
+weight_loss <- working_data
+
 # Create weight difference columns
 weight_loss$Weight_Gained <- weight_loss$Weight_Prior_Delivery - weight_loss$Pre_Pregnancy_Weight
 weight_loss$Weight_Lost_1_Month <- weight_loss$Weight_Prior_Delivery - weight_loss$Weight_1_Month
+weight_loss$Weight_Lost_3_Month <- weight_loss$Weight_Prior_Delivery - weight_loss$Weight_3_Month
 weight_loss$Weight_Lost_6_Month <- weight_loss$Weight_Prior_Delivery - weight_loss$Weight_6_Month
 weight_loss$Weight_Lost_12_Month <- weight_loss$Weight_Prior_Delivery - weight_loss$Weight_12_Month
 
