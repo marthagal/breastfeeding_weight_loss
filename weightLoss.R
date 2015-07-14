@@ -178,6 +178,8 @@ working_data$Supplement <- as.character(working_data$Supplement)
 
 weight_loss <- working_data
 
+
+
 # Create weight difference columns
 weight_loss$Weight_Gained <- weight_loss$Weight_Prior_Delivery - weight_loss$Pre_Pregnancy_Weight
 weight_loss$Weight_Lost_1_Month <- weight_loss$Weight_Prior_Delivery - weight_loss$Weight_1_Month
@@ -185,4 +187,37 @@ weight_loss$Weight_Lost_3_Month <- weight_loss$Weight_Prior_Delivery - weight_lo
 weight_loss$Weight_Lost_6_Month <- weight_loss$Weight_Prior_Delivery - weight_loss$Weight_6_Month
 weight_loss$Weight_Lost_12_Month <- weight_loss$Weight_Prior_Delivery - weight_loss$Weight_12_Month
 
-write.csv(working_data, "weight_loss.csv")
+# Determine total weight lost
+r <- nrow(weight_loss)
+i <- 1
+
+for (i in 1:r) {
+  part_weight_loss <- weight_loss[i,]
+  part_weight_loss_ri <- part_weight_loss$Response.ID
+  if ((is.na(part_weight_loss$Weight_Lost_12_Month)) == FALSE) {
+    weight_loss$Total_Lost[weight_loss$Response.ID == part_weight_loss_ri] <- part_weight_loss$Weight_Prior_Delivery - part_weight_loss$Weight_12_Month  
+    weight_loss$Prepregnancy_Difference[weight_loss$Response.ID == part_weight_loss_ri] <- -(part_weight_loss$Pre_Pregnancy_Weight - part_weight_loss$Weight_12_Month)  
+    weight_loss$Ending_Weight[weight_loss$Response.ID == part_weight_loss_ri] <- part_weight_loss$Weight_12_Month  
+  } else {
+    if ((is.na(part_weight_loss$Weight_Lost_6_Month)) == FALSE) {
+      weight_loss$Total_Lost[weight_loss$Response.ID == part_weight_loss_ri] <- part_weight_loss$Weight_Prior_Delivery - part_weight_loss$Weight_6_Month  
+      weight_loss$Prepregnancy_Difference[weight_loss$Response.ID == part_weight_loss_ri] <- -(part_weight_loss$Pre_Pregnancy_Weight - part_weight_loss$Weight_6_Month)  
+      weight_loss$Ending_Weight[weight_loss$Response.ID == part_weight_loss_ri] <- part_weight_loss$Weight_6_Month  
+    }   
+   else {
+    if ((is.na(part_weight_loss$Weight_Lost_3_Month)) == FALSE) {
+      weight_loss$Total_Lost[weight_loss$Response.ID == part_weight_loss_ri] <- part_weight_loss$Weight_Prior_Delivery - part_weight_loss$Weight_3_Month  
+      weight_loss$Prepregnancy_Difference[weight_loss$Response.ID == part_weight_loss_ri] <- -(part_weight_loss$Pre_Pregnancy_Weight - part_weight_loss$Weight_3_Month)  
+      weight_loss$Ending_Weight[weight_loss$Response.ID == part_weight_loss_ri] <- part_weight_loss$Weight_3_Month  
+    }   else {
+      if ((is.na(part_weight_loss$Weight_Lost_1_Month)) == FALSE) {
+        weight_loss$Total_Lost[weight_loss$Response.ID == part_weight_loss_ri] <- part_weight_loss$Weight_Prior_Delivery - part_weight_loss$Weight_1_Month  
+        weight_loss$Prepregnancy_Difference[weight_loss$Response.ID == part_weight_loss_ri] <- -(part_weight_loss$Pre_Pregnancy_Weight - part_weight_loss$Weight_1_Month)  
+        weight_loss$Ending_Weight[weight_loss$Response.ID == part_weight_loss_ri] <- part_weight_loss$Weight_1_Month  
+      }   }}}
+  
+}
+
+final_data <- subset(weight_loss, Ending_Weight != "NA")
+
+write.csv(final_data, "weight_loss.csv")
